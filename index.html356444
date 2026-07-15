@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neo Lite – Premium Learning Community</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    height:100%;
+    overflow:hidden;
+    background: radial-gradient(circle at 50% 20%, #062a24 0%, #04140f 45%, #010805 100%);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color:#fff;
+  }
+  body {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    height:100vh;
+  }
+
+  /* animated background glow */
+  body::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0,255,170,0.15), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(168,85,247,0.15), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(0,200,255,0.12), transparent 40%);
+    animation: bgshift 8s ease-in-out infinite alternate;
+    z-index:0;
+  }
+  @keyframes bgshift {
+    0% { opacity:0.6; transform:scale(1); }
+    100% { opacity:1; transform:scale(1.08); }
+  }
+
+  /* floating particles */
+  .particle {
+    position:absolute;
+    width:4px; height:4px;
+    background:#39ffb0;
+    border-radius:50%;
+    opacity:0.6;
+    animation: floatUp linear infinite;
+    z-index:1;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); opacity:0; }
+    10% { opacity:0.8; }
+    100% { transform: translateY(-100vh) translateX(20px); opacity:0; }
+  }
+
+  .card {
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:430px;
+    height:96vh;
+    max-height:900px;
+    background: linear-gradient(180deg, rgba(6,40,32,0.6), rgba(2,15,12,0.85));
+    border:1px solid rgba(57,255,176,0.25);
+    border-radius:22px;
+    box-shadow: 0 0 40px rgba(0,255,170,0.15), inset 0 0 60px rgba(0,255,170,0.03);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+    padding: 18px 22px;
+    backdrop-filter: blur(6px);
+  }
+
+  .logo-wrap { position:relative; margin-top:6px; }
+  .logo {
+    width:110px; height:110px;
+    border-radius:50%;
+    background: conic-gradient(from 90deg, #39ffb0, #00c8ff, #a855f7, #39ffb0);
+    display:flex; align-items:center; justify-content:center;
+    font-size:44px; font-weight:900;
+    color:#04140f;
+    box-shadow: 0 0 25px rgba(57,255,176,0.6), 0 0 50px rgba(0,200,255,0.3);
+    animation: pulseLogo 2.4s ease-in-out infinite;
+  }
+  @keyframes pulseLogo {
+    0%,100% { transform:scale(1); box-shadow:0 0 25px rgba(57,255,176,0.6), 0 0 50px rgba(0,200,255,0.3);}
+    50% { transform:scale(1.06); box-shadow:0 0 40px rgba(57,255,176,0.9), 0 0 70px rgba(0,200,255,0.5);}
+  }
+
+  h1 {
+    margin-top:10px;
+    font-size:26px;
+    letter-spacing:1px;
+    background: linear-gradient(90deg,#39ffb0,#00c8ff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 20px rgba(57,255,176,0.3);
+  }
+
+  .tabs {
+    display:flex;
+    gap:8px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(57,255,176,0.2);
+    border-radius:12px;
+    padding:8px 10px;
+    font-size:11px;
+    width:100%;
+    justify-content:space-between;
+    margin-top:8px;
+  }
+  .tabs span { color:#39ffb0; white-space:nowrap; font-weight:600; }
+
+  .features {
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:10px;
+  }
+  .feature {
+    background: rgba(255,255,255,0.04);
+    border:1px solid rgba(57,255,176,0.18);
+    border-radius:10px;
+    padding:11px 14px;
+    font-size:13.5px;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition: transform .2s;
+  }
+  .feature:hover { transform: translateX(3px); border-color:#39ffb0; }
+
+  .join-btn {
+    width:100%;
+    margin-top:12px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:800;
+    color:#04140f;
+    background: linear-gradient(90deg,#39ffb0,#00c8ff,#a855f7);
+    background-size:200% auto;
+    cursor:pointer;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 25px rgba(57,255,176,0.5);
+    animation: glowMove 3s linear infinite, pulseBtn 1.8s ease-in-out infinite;
+  }
+  @keyframes glowMove { to { background-position:200% center; } }
+  @keyframes pulseBtn {
+    0%,100% { transform:scale(1); }
+    50% { transform:scale(1.03); }
+  }
+
+  .timer-box {
+    width:100%;
+    margin-top:12px;
+    background:rgba(168,85,247,0.08);
+    border:1px solid rgba(168,85,247,0.4);
+    border-radius:12px;
+    text-align:center;
+    padding:10px;
+  }
+  .timer-label {
+    font-size:11.5px;
+    color:#c084fc;
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  .timer-value {
+    font-size:30px;
+    font-weight:900;
+    color:#fff;
+    text-shadow:0 0 15px rgba(168,85,247,0.7);
+  }
+  .timer-value span { font-size:14px; color:#c084fc; }
+
+  .disclaimer {
+    font-size:9.5px;
+    color:rgba(255,255,255,0.45);
+    text-align:center;
+    margin-top:8px;
+    line-height:1.35;
+  }
+
+  @media (max-height:700px) {
+    .logo { width:80px; height:80px; font-size:32px; }
+    h1 { font-size:20px; }
+    .feature { padding:8px 12px; font-size:12px; }
+    .join-btn { padding:12px; font-size:14px; }
+    .timer-value { font-size:24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo-wrap">
+    <div class="logo">N</div>
+  </div>
+
+  <h1>Neo Lite</h1>
+
+  <div class="tabs">
+    <span>⚡ Instant Notifications</span>
+    <span>🔒 Private Access</span>
+  </div>
+
+  <div class="features">
+    <div class="feature">🔒 Private channel access</div>
+    <div class="feature">📊 Regular content updates</div>
+    <div class="feature">✨ Simple user experience</div>
+  </div>
+
+  <a href="https://telegram.me/+o_lJCT4UdxJhYjU1" class="join-btn" id="joinBtn">Join Telegram Channel</a>
+
+  <div class="timer-box">
+    <div class="timer-label">⏳ LIMITED TIME ACCESS CLOSING IN</div>
+    <div class="timer-value"><span id="secs">09</span> <span>sec</span></div>
+  </div>
+
+  <div class="disclaimer">
+    Disclaimer: Information shared is for general knowledge and educational use only. We are not responsible for any decisions made by users. Kindly proceed with proper research and responsibility.
+  </div>
+</div>
+
+<script>
+  // floating particles
+  const body = document.body;
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (4 + Math.random() * 6) + 's';
+    p.style.animationDelay = (Math.random() * 6) + 's';
+    body.appendChild(p);
+  }
+
+  // countdown timer (loops)
+  let t = 9;
+  const secEl = document.getElementById('secs');
+  setInterval(() => {
+    t = t > 0 ? t - 1 : 9;
+    secEl.textContent = t.toString().padStart(2, '0');
+  }, 1000);
+</script>
+
+</body>
+</html>
